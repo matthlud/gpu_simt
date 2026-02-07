@@ -1,0 +1,7 @@
+.vscode/
+artifacts/
+
+sim/
+*.vcd
+*.out
+.DS_Store

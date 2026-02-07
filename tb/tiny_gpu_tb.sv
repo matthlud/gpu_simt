@@ -55,7 +55,11 @@ module tiny_gpu_tb;
     // This block acts as the Fetch Unit.
     always_comb begin
         // Defaults
-        instr_in = '{opcode: NOP, rd:0, rs1:0, rs2:0, imm:0};
+        instr_in.opcode = NOP;
+        instr_in.rd     = 0;
+        instr_in.rs1    = 0;
+        instr_in.rs2    = 0;
+        instr_in.imm    = 0;
 
         case (pc_out)
             // ---------------------------------------------------------
@@ -149,11 +153,15 @@ module tiny_gpu_tb;
 
             // Print Registers R1 (Data) and R3 (Result) for all threads
             $write("   R1(Data):  ");
-            foreach(dut.reg_file[i]) $write("[%0d]:%0d  ", i, dut.reg_file[i][1]);
+            for (int i = 0; i < $size(dut.reg_file); i++) begin
+                $write("[%0d]:%0d  ", i, dut.reg_file[i][1]);
+            end
             $write("\n");
 
             $write("   R3(Rslt):  ");
-            foreach(dut.reg_file[i]) $write("[%0d]:%0d  ", i, dut.reg_file[i][3]);
+            for (int i = 0; i < $size(dut.reg_file); i++) begin
+                $write("[%0d]:%0d  ", i, dut.reg_file[i][3]);
+            end
             $write("\n");
 
             $display("-------------------------------------------------------------");

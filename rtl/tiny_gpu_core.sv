@@ -74,13 +74,13 @@ module tiny_gpu_core
 
                 // Memory Load (Gather)
                 LDR: begin
-                    // In cycle 1 we output address, assume data returns next cycle (pipeline stall needed in real CPU)
-                    // For this simple example, we assume data is ready immediately (combinational mem)
                     for (int t = 0; t < NUM_THREADS; t++) begin
                         if (exec_mask[t]) begin
-                           // Address is calculated from register
+                           // 1. Output the address (for debug/real memory)
                            mem_addr[t] <= reg_file[t][instr_in.rs1];
-                           // Actual writeback would happen next cycle with mem_rdata
+                           // 2. CAPTURE THE DATA (This was missing!)
+                           // Since the TB memory is constant/combinational, we can read it now.
+                           reg_file[t][instr_in.rd] <= mem_rdata[t];
                         end
                     end
                     pc <= pc + 1;

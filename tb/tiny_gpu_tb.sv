@@ -158,6 +158,12 @@ module tiny_gpu_tb;
             end
             $write("\n");
 
+            $write("   R2(int):  ");
+            for (int i = 0; i < $size(dut.reg_file); i++) begin
+                $write("[%0d]:%0d  ", i, dut.reg_file[i][2]);
+            end
+            $write("\n");
+
             $write("   R3(Rslt):  ");
             for (int i = 0; i < $size(dut.reg_file); i++) begin
                 $write("[%0d]:%0d  ", i, dut.reg_file[i][3]);
